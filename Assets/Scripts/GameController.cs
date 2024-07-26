@@ -11,6 +11,13 @@ public class GameController : MonoBehaviour
     public Button replayButton;
     public TMP_Text resultText;
 
+    public Image playerChoiceImage;
+    public Image computerChoiceImage;
+    public Sprite rockSprite;
+    public Sprite paperSprite;
+    public Sprite scissorsSprite;
+    public Sprite defaultSprite;
+
     private enum Choice { Rock, Paper, Scissors, None }
     private Choice playerChoice = Choice.None;
     private Choice computerChoice = Choice.None;
@@ -28,7 +35,18 @@ public class GameController : MonoBehaviour
     private void PlayerMakesChoice(Choice choice)
     {
         playerChoice = choice;
-        resultText.text = "Player chose: " + choice;
+        switch (choice)
+        {
+            case Choice.Rock:
+                playerChoiceImage.sprite = rockSprite;
+                break;
+            case Choice.Paper:
+                playerChoiceImage.sprite = paperSprite;
+                break;
+            case Choice.Scissors:
+                playerChoiceImage.sprite = scissorsSprite;
+                break;
+        }
     }
 
     private void DetermineWinner()
@@ -36,7 +54,18 @@ public class GameController : MonoBehaviour
         if (playerChoice == Choice.None) return;
 
         computerChoice = (Choice)Random.Range(0, 3);
-        resultText.text += "\nComputer chose: " + computerChoice;
+        switch (computerChoice)
+        {
+            case Choice.Rock:
+                computerChoiceImage.sprite = rockSprite;
+                break;
+            case Choice.Paper:
+                computerChoiceImage.sprite = paperSprite;
+                break;
+            case Choice.Scissors:
+                computerChoiceImage.sprite = scissorsSprite;
+                break;
+        }
 
         string result;
         if (playerChoice == computerChoice)
@@ -54,9 +83,8 @@ public class GameController : MonoBehaviour
             result = "Computer wins!";
         }
 
-        resultText.text += "\nResult: " + result;
+        resultText.text = "Result: " + result;
         replayButton.gameObject.SetActive(true);
-        shootButton.interactable = false;
         shootButton.interactable = false;
         rockButton.interactable = false;
         paperButton.interactable = false;
@@ -67,6 +95,8 @@ public class GameController : MonoBehaviour
     {
         playerChoice = Choice.None;
         computerChoice = Choice.None;
+        playerChoiceImage.sprite = defaultSprite;
+        computerChoiceImage.sprite = defaultSprite;
         resultText.text = "";
         replayButton.gameObject.SetActive(false);
         shootButton.interactable = true;
