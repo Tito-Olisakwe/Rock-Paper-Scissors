@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour
         scissorsButton.interactable = false;
     }
 
-    private void ResetGame()
+    public void ResetGame()
     {
         playerChoice = Choice.None;
         computerChoice = Choice.None;
